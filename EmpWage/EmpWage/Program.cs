@@ -12,7 +12,7 @@ namespace EmpWage
         {
             Console.WriteLine("\n Welcome to the employee wage computation programs");
             EmpAttendance emp = new EmpAttendance();
-            emp.DailyEmployeeWage();
+            emp.MonthlyEmpWage();
             Console.ReadLine();
 
         }
