@@ -8,26 +8,26 @@ namespace EmpWage
 {
     internal class EmpAttendance
     {
-        const int EMP_FULLTIME = 1, EMP_PARTTIME = 2, EMP_WAGE_PER_HR = 20;
-        static int daily_Emp_Wage = 0, empHrs = 0;
-        public static void GetDailyEmpWage()
+        public const int IS_PART_TIME = 1, IS_FULL_TIME = 2, EMP_RATE_PER_HOUR = 20;
+        int empHrs = 0, empWage = 0;
+        public void DailyEmployeeWage()
         {
             Random random = new Random();
-            int randomInput = random.Next(0, 3);
-            if (randomInput == EMP_FULLTIME)
+            int empCheck = random.Next(0, 3);
+            switch (empCheck)
             {
-                empHrs = 8;
+                case IS_PART_TIME:
+                    empHrs = 4;
+                    break;
+                case IS_FULL_TIME:
+                    empHrs = 8;
+                    break;
+                default:
+                    empHrs = 0;
+                    break;
             }
-            else if (randomInput == EMP_PARTTIME)
-            {
-                empHrs = 4;
-            }
-            else
-            {
-                empHrs = 0;
-            }
-            daily_Emp_Wage = empHrs * EMP_WAGE_PER_HR;
-            Console.WriteLine("Daily Employee Wage is: " + daily_Emp_Wage);
+            empWage = empHrs * EMP_RATE_PER_HOUR;
+            Console.WriteLine("Employee Wage : " + empWage);
         }
     }
 }
