@@ -11,13 +11,15 @@ namespace EmpWage
 
         public const int EMP_FULLTIME = 1, EMP_PARTTIME = 2;
 
-        public List<CompanyEmployeeWage> companyEmpWageList;
+        private List<CompanyEmployeeWage> companyEmpWageList;
+        private List<CompanyEmployeeWage> dailyAndTotalWageList;
 
         public static Random random = new Random();
 
         public EmployeeWageBuilder()
         {
-            companyEmpWageList =new List<CompanyEmployeeWage>();
+            companyEmpWageList = new List<CompanyEmployeeWage>();
+            dailyAndTotalWageList = new List<CompanyEmployeeWage>();
         }
 
         //Manage multiple companies using list
@@ -27,6 +29,7 @@ namespace EmpWage
             companyEmpWageList.Add(companyEmpWage);
         }
 
+
         public void ComputeEmpWage()
         {
             foreach (CompanyEmployeeWage empWage in companyEmpWageList)
@@ -35,6 +38,7 @@ namespace EmpWage
                 Console.WriteLine(empWage.ToString());
             }
         }
+
         private int ComputeEmpWage(CompanyEmployeeWage companyEmpWage)
         {
             int empHrs = 0, total_Emp_Hrs = 0, totalWorkingDays = 1, daily_Emp_Wage = 0;
@@ -61,6 +65,9 @@ namespace EmpWage
                 total_Emp_Hrs += empHrs;
                 totalWorkingDays++;
 
+                CompanyEmployeeWage dailyAndTotalWage = new CompanyEmployeeWage(companyEmpWage.company, daily_Emp_Wage, companyEmpWage.total_Emp_Wage);
+                dailyAndTotalWageList.Add(dailyAndTotalWage);
+
             }
             Console.WriteLine("Total Days: {0}, Total working hours: {1}", (totalWorkingDays - 1), total_Emp_Hrs);
             Console.WriteLine("Total Employee Wage for company " + companyEmpWage.company + " is: " + companyEmpWage.total_Emp_Wage + "\n");
@@ -68,6 +75,7 @@ namespace EmpWage
         }
     }
 }
+
 
     
 
