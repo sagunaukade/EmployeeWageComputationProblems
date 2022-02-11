@@ -11,10 +11,11 @@ namespace EmpWage
         static void Main(string[] args)
         {
             Console.WriteLine("\n Welcome to the employee wage computation programs");
-            EmpAttendance emp = new EmpAttendance();
-            emp.MonthlyEmpWage();
+            EmpAttendance.GetMonthlyEmpWage("Accenture", 20, 5, 10);
+            EmpAttendance.GetMonthlyEmpWage("Infosys", 10, 4, 20);
+            EmpAttendance.GetMonthlyEmpWage("TCS", 35, 3, 25);
             Console.ReadLine();
-
+           
         }
     }
 }
