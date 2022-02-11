@@ -11,11 +11,14 @@ namespace EmpWage
         static void Main(string[] args)
         {
             Console.WriteLine("\n Welcome to the employee wage computation programs");
-            EmployeeWageBuilderArray empwagebuilder = new EmployeeWageBuilderArray();
-            empwagebuilder.AddCompanyEmpWage("Accenture", 20, 5, 10);
-            empwagebuilder.AddCompanyEmpWage("Infosys", 10, 4, 20);
-            empwagebuilder.AddCompanyEmpWage("TCS", 35, 3, 25);
-            empwagebuilder.ComputeEmpWage();
+            EmployeeWageBuilder company = new EmployeeWageBuilder();
+            company.AddCompanyEmpWageToList("Accenture", "Saguna", 30, 7, 23, 220);
+            company.AddCompanyEmpWageToList("Infosys", "Ganesh", 10, 20, 22, 103);
+            company.AddCompanyEmpWageToList("TCS", "Raghav", 10, 17, 22, 170);
+            company.AddCompanyEmpWageToList("Wipro", "Amruta", 35, 20, 20, 180);
+            company.AddCompanyEmpWageToList("Cognizant", "Lavanya", 25, 90, 14, 210);
+            company.IterateEmpWageCompany();
+            Console.ReadLine();
             Console.ReadLine();
         }
 

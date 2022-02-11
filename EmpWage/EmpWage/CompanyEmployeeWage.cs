@@ -8,28 +8,38 @@ namespace EmpWage
 {
     internal class CompanyEmployeeWage
     {
+        //Declaring Variables
         public string company;
-        public int emp_Wage_Per_Hr;
-        public int working_Days_Per_Month;
-        public int max_Hrs_Per_Month;
-        public int total_Emp_Wage;
+        public string name;
+        public int wagePerHours;
+        public int dailyHours;
+        public int dayPerMonth;
+        public int totalHours;
+        public int totalEmpWage;
 
-        public CompanyEmployeeWage(string company, int emp_Wage_Per_Hr, int working_Days_Per_Month, int max_Hrs_Per_Month)
+        public CompanyEmployeeWage(string company, string name, int wagePerHours, int dailyHours, int dayPerMonth, int totalHours)
         {
             this.company = company;
-            this.emp_Wage_Per_Hr = emp_Wage_Per_Hr;
-            this.working_Days_Per_Month = working_Days_Per_Month;
-            this.max_Hrs_Per_Month = max_Hrs_Per_Month;
+            this.name = name;
+            this.wagePerHours = wagePerHours;
+            this.totalHours = totalHours;
+            this.dailyHours = dailyHours;
+            this.dayPerMonth = dayPerMonth;
+            this.totalHours = totalHours;
         }
 
-        public void SetTotalEmpWage(int totalEmpWage)
+        //Saving total wage for each company
+        public void SetTotalEmployWage(int totalEmpWage)
         {
-            this.total_Emp_Wage = totalEmpWage;
+            this.totalEmpWage = totalEmpWage;
         }
-        public override string ToString()
+
+        //Returning company name with total wage of the company
+        public string CompanyTotalWageToString()
         {
-            return "Total Employee Wage for company: " + company + " is: " + total_Emp_Wage + "\n";
+            return "Company Name : " + this.company + " \nMonthly Wage Is Rs : " + this.totalEmpWage;
         }
     }
-}  
+}
+  
 
