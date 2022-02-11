@@ -9,74 +9,73 @@ namespace EmpWage
     internal class EmployeeWageBuilder
     {
 
-        //Initializing Constant
-        private const int FULL_TIME_EMP = 1;
-        private const int PART_TIME_EMP = 2;
+        public const int EMP_FULLTIME = 1, EMP_PARTTIME = 2;
 
-        //Initializing Variables
-        private int numOfCompany = 0;
         private List<CompanyEmployeeWage> companyEmpWageList;
+        private List<CompanyEmployeeWage> dailyAndTotalWageList;
+
+        public static Random random = new Random();
 
         public EmployeeWageBuilder()
         {
             companyEmpWageList = new List<CompanyEmployeeWage>();
+            dailyAndTotalWageList = new List<CompanyEmployeeWage>();
         }
 
-        //Ability to manage employee wage of multiple companies using list
-        public void AddCompanyEmpWageToList(string company, string name, int wagePerHours, int dailyHours, int dayPerMonth, int totalHours)
+        //Manage multiple companies using list
+        public void AddCompanyEmpWageToList(string company, int emp_Wage_Per_Hr, int working_Days_Per_Month, int max_Hrs_Per_Month)
         {
-            CompanyEmployeeWage companyEmpWage = new CompanyEmployeeWage(company, name, wagePerHours, dailyHours, dayPerMonth, totalHours);
+            CompanyEmployeeWage companyEmpWage = new CompanyEmployeeWage(company, emp_Wage_Per_Hr, working_Days_Per_Month, max_Hrs_Per_Month);
             companyEmpWageList.Add(companyEmpWage);
         }
 
-        public void IterateEmpWageCompany()
+
+        public void ComputeEmpWage()
         {
-            foreach (CompanyEmployeeWage companyEmp in companyEmpWageList)
+            foreach (CompanyEmployeeWage empWage in companyEmpWageList)
             {
-                companyEmp.SetTotalEmployWage(ComputeMonthlyWage(companyEmp));
-                Console.WriteLine(companyEmp.CompanyTotalWageToString());
-                Console.ReadLine();
+                empWage.SetTotalEmpWage(ComputeEmpWage(empWage));
+                Console.WriteLine(empWage.ToString());
             }
         }
 
-        //Compute Employ Wage for Multiple Companies Using Procedural Ways 
-        public int ComputeMonthlyWage(CompanyEmployeeWage companyEmp)
+        private int ComputeEmpWage(CompanyEmployeeWage companyEmpWage)
         {
-            // local Variable
-            int day = 0, hours = 0, dailyEmpHrs, dailyEmpWage, totalWage = 0;
+            int empHrs = 0, total_Emp_Hrs = 0, totalWorkingDays = 1, daily_Emp_Wage = 0;
 
-            //Calculating Wages Per Month And Added Total Hours Condition
-            Random randCheck = new Random();
-            while (day < companyEmp.dayPerMonth && hours <= companyEmp.totalHours)
+            while (totalWorkingDays <= companyEmpWage.working_Days_Per_Month && total_Emp_Hrs <= companyEmpWage.max_Hrs_Per_Month)
             {
-                //Check Employ Is Present Or Absent          
-                int checkAttend = randCheck.Next(0, 3);
+                int randomInput = random.Next(0, 3);
 
-                //Solved Using Switch Case
-                switch (checkAttend)
+                switch (randomInput)
                 {
-                    case FULL_TIME_EMP:
-                        dailyEmpHrs = companyEmp.dailyHours;
+                    case EMP_FULLTIME:
+                        empHrs = 8;
                         break;
-                    case PART_TIME_EMP:
-                        dailyEmpHrs = companyEmp.dailyHours / 2;
+                    case EMP_PARTTIME:
+                        empHrs = 4;
                         break;
                     default:
-                        dailyEmpHrs = 0;
+                        empHrs = 0;
                         break;
                 }
+                daily_Emp_Wage = empHrs * companyEmpWage.emp_Wage_Per_Hr;
+                Console.WriteLine("Employee wage for day {0} is: {1} for {2} Hrs", totalWorkingDays, daily_Emp_Wage, empHrs);
+                companyEmpWage.total_Emp_Wage += daily_Emp_Wage;
+                total_Emp_Hrs += empHrs;
+                totalWorkingDays++;
 
-                //Calculate Employ Daily Wage And Part Time Wage 
-                dailyEmpWage = companyEmp.wagePerHours * dailyEmpHrs;
-                day++;
-                hours += dailyEmpHrs;
-                totalWage += dailyEmpWage;
+                CompanyEmployeeWage dailyAndTotalWage = new CompanyEmployeeWage(companyEmpWage.company, daily_Emp_Wage, companyEmpWage.total_Emp_Wage);
+                dailyAndTotalWageList.Add(dailyAndTotalWage);
+
             }
-            Console.WriteLine("Employ Name : {0} \nCompany Name : {1} \nTotal Wage Per Month Is : {2} \nTotal Working Hours : {3} \nTotal Working Day is : {4}", companyEmp.name, companyEmp.company, totalWage, hours, day);
-            Console.ReadLine();
-            return totalWage;
+            Console.WriteLine("Total Days: {0}, Total working hours: {1}", (totalWorkingDays - 1), total_Emp_Hrs);
+            Console.WriteLine("Total Employee Wage for company " + companyEmpWage.company + " is: " + companyEmpWage.total_Emp_Wage + "\n");
+            return companyEmpWage.total_Emp_Wage;
         }
     }
 }
+
+
     
 
